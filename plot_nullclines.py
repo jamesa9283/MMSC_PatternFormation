@@ -37,6 +37,7 @@ axes = fig.add_subplot(1, 1, 1)
 cs1 = axes.contour(U, V, F, [0], colors="r", label="F")
 cs2 = axes.contour(U, V, G, [0], colors="b", label="G")
 axes.plot([1], [0.9], marker="o", markersize=7, markeredgecolor="red", markerfacecolor="green")
+axes.text(1.1,1.1,'(1, 0.9)')
 proxy = [plt.Rectangle((0,0),1,1,fc = pc.get_edgecolor()[0]) for pc in itertools.chain(cs1.collections, cs2.collections)]
 plt.legend(proxy, ["F", "G"])
 plt.title("Nullclines of Schnakenberg Model")
