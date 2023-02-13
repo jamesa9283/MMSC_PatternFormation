@@ -1,17 +1,18 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import math
+import random
 
 # Parameters
   # Data from https://doi.org/10.1016/0895-7177(93)90025-T
 a = 0.1
 b = 0.9
-Nx = 1000
-Nt = 500
 gamma = 2
 d = 10
-L = 1
-T = 1
+
+Nx = 15
+Nt = 10000
+L = 4
+T = 5
 
 
 x = np.linspace(0, L, Nx+1) # mesh points in space
@@ -20,6 +21,11 @@ t = np.linspace(0, T, Nt+1) # mesh points in time
 dt = t[1] - t[0]
 
 mu = dt / dx**2
+
+if (mu > 0.5):
+    print(mu)
+    exit
+
 
 u = np.zeros((Nx+1, Nt+1)) # unknown u
 v = np.zeros((Nx+1, Nt+1)) # unknown v
@@ -31,10 +37,10 @@ def g(u, v): # define g
     return b - u**2*v
 
 def I(x):
-    return 0
+    return 0.5*random.random()
 
 def J(x):
-    return 1
+    return 0.75*random.random()
 
 # Print iterations progress
 def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
@@ -81,15 +87,17 @@ for m in range(0, Nt-1):
 
 # plot
 fig = plt.figure()
-plt.imshow(u.T, interpolation='nearest')
+plt.imshow(u.T, extent=[-4,4,-1,1], aspect=4)
 
 
 fig2 = plt.figure()
-plt.imshow(v.T, interpolation='nearest')
+plt.imshow(v.T, extent=[-4,4,-1,1], aspect=4)
+
+fig3 = plt.figure()
+# print(u[:,Nt])
+plt.plot(t, u[Nx,:])
 
 plt.show()
-
-
 
 # fig = plt.figure()
 # ax2 = plt.axes()
